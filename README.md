@@ -48,26 +48,41 @@ the style. Additional fields have no influence on the citation, but
 will of course still be in the bibtex entry during export. The fields
 _url_, _doi_ and _comment_ are always possible.
 
-Required fields:
+*Required fields:*
 
 @article        author, title, journal, year
+
 @book           author, editor, title, publisher, year
+
 @inbook         author, title, chapter, pages, publisher, year
+
 @incollection   author, title, booktitle, year, publisher
+
 @inproceedings  author, title, booktitle, year, publisher
+
 @mastersthesis  author, title, school, year
+
 @phdthesis      author, title, school, year
+
 @techreport     author, title, institution, year
 
-Optional fields:
+
+*Optional fields:*
 
 @article        volume, number, pages, month
+
 @book           edition, address
+
 @inbook         address, edition
+
 @incollection   address, edition, editor, pages
+
 @inproceedings  address, editor, pages
+
 @mastersthesis  type, address
+
 @phdthesis      type, address
+
 @techreport     number, address
 
 
@@ -94,9 +109,6 @@ License and Copyright
     available under the GNU General Public License.
     See http://www.monperrus.net/martin/bibtexbrowser/#Copyright
     
-
-Links and Sources
------------------
 
 [1]: http://www.monperrus.net/martin/bibtexbrowser/
 [2]: https://origin.www.ieee.org/documents/ieeecitationref.pdf
