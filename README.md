@@ -33,10 +33,10 @@ As described on the [bibtexbrowser website][1]:
 2.  Copy IEEEStyleForBibtexbrowser.php to the bibtexbrowser directory
 3.  Insert the following code into bibtexbrowser.local.php:
 
-    <?php
-      include('IEEEStyleForBibtexbrowser.php');
-      define('BIBLIOGRAPHYSTYLE','IEEEStyle');
-    ?>
+        <?php
+          include('IEEEStyleForBibtexbrowser.php');
+          define('BIBLIOGRAPHYSTYLE','IEEEStyle');
+        ?>
 
 
 Required and Optional Bibtex Fields
@@ -48,7 +48,7 @@ the style. Additional fields have no influence on the citation, but
 will of course still be in the bibtex entry during export. The fields
 _url_, _doi_ and _comment_ are always possible.
 
-*Required fields:*
+**Required fields:**
 
 @article        author, title, journal, year
 
@@ -67,7 +67,7 @@ _url_, _doi_ and _comment_ are always possible.
 @techreport     author, title, institution, year
 
 
-*Optional fields:*
+**Optional fields:**
 
 @article        volume, number, pages, month
 
