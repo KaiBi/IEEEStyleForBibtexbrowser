@@ -6,8 +6,8 @@ a PHP-based generator for citations from bibtex files. It tries to
 adhere to the [IEEE style guidelines][2] as close as possible.
 
 
-Limitations
------------
+Limitations (read: to do)
+-------------------------
 
 *   The entry types _booklet_, _conference_, _manual_, _proceedings_,
     _unpublished_ are completely ignored.
@@ -22,6 +22,8 @@ Limitations
 *   The online sources of dissertations and theses (if available) are not
     given directly in the citation. Bibtexbrowser usually appends a link
     to the entries by itself.
+*   If a required field is missing in the bibtex source file it will be
+    assumed as empty string and produce a weird output.
 
 
 Integration into Bibtexbrowser
@@ -48,42 +50,37 @@ the style. Additional fields have no influence on the citation, but
 will of course still be in the bibtex entry during export. The fields
 _url_, _doi_ and _comment_ are always possible.
 
-**Required fields:**
+__@article__
+_Required:_ author, title, journal, year
+_Optional:_ volume, number, pages, month
 
-@article        author, title, journal, year
+__@book__
+_Required:_ author, editor, title, publisher, year
+_Optional:_ address, edition
 
-@book           author, editor, title, publisher, year
+__@inbook__
+_Required:_ author, title, chapter, pages, publisher, year
+_Optional:_ address, edition
 
-@inbook         author, title, chapter, pages, publisher, year
+__@incollection__
+_Required:_ author, title, booktitle, year, publisher
+_Optional:_ address, edition, editor, pages
 
-@incollection   author, title, booktitle, year, publisher
+__@inproceedings__
+_Required:_ author, title, booktitle, year, publisher
+_Optional:_ address, editor, pages
 
-@inproceedings  author, title, booktitle, year, publisher
+__@mastersthesis__
+_Required:_ author, title, school, year
+_Optional:_ type, address
 
-@mastersthesis  author, title, school, year
+__@phdthesis__
+_Required:_ author, title, school, year
+_Optional:_ type, address
 
-@phdthesis      author, title, school, year
-
-@techreport     author, title, institution, year
-
-
-**Optional fields:**
-
-@article        volume, number, pages, month
-
-@book           edition, address
-
-@inbook         address, edition
-
-@incollection   address, edition, editor, pages
-
-@inproceedings  address, editor, pages
-
-@mastersthesis  type, address
-
-@phdthesis      type, address
-
-@techreport     number, address
+__@techreport__
+_Required:_ author, title, institution, year
+_Optional:_ number, address
 
 
 License and Copyright
