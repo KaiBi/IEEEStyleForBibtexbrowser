@@ -51,35 +51,51 @@ will of course still be in the bibtex entry during export. The fields
 _url_, _doi_ and _comment_ are always possible.
 
 __@article__
+
 _Required:_ author, title, journal, year
+
 _Optional:_ volume, number, pages, month
 
 __@book__
+
 _Required:_ author, editor, title, publisher, year
+
 _Optional:_ address, edition
 
 __@inbook__
+
 _Required:_ author, title, chapter, pages, publisher, year
+
 _Optional:_ address, edition
 
 __@incollection__
+
 _Required:_ author, title, booktitle, year, publisher
+
 _Optional:_ address, edition, editor, pages
 
 __@inproceedings__
+
 _Required:_ author, title, booktitle, year, publisher
+
 _Optional:_ address, editor, pages
 
 __@mastersthesis__
+
 _Required:_ author, title, school, year
+
 _Optional:_ type, address
 
 __@phdthesis__
+
 _Required:_ author, title, school, year
+
 _Optional:_ type, address
 
 __@techreport__
+
 _Required:_ author, title, institution, year
+
 _Optional:_ number, address
 
 
