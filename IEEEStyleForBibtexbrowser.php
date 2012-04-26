@@ -128,11 +128,11 @@ function IEEEStyle(&$bibentry) {
 	$editionShort = false;
 	if ($bibentry->hasField('edition')) {
 		$edition = $bibentry->getField('edition');
+		// extend this if you need hihgher edition numbers
 		$editionToShort = array (
-			// extend this if you need hihgher edition numbers
 			'first' => '1st',
 			'second' => '2nd',
-			'third' => '3rd'
+			'third' => '3rd',
 			'fourth' => '4th',
 			'fifth' => '5th'
 		);
@@ -179,88 +179,91 @@ function IEEEStyle(&$bibentry) {
 	// redundancies are left on purpose to improve changeability
 	switch ($entryType) {
 		case 'article':
-			$entry[] = $author;
-			$entry[] = '&quot;' . $title . '&quot;';
-			$entry[] = '<em>' . $journal . '</em>';
+			if ($author) $entry[] = $author;
+			if ($title) $entry[] = '&quot;' . $title . '&quot;';
+			if ($journal) $entry[] = '<em>' . $journal . '</em>';
 			if ($volume) $entry[] = 'vol. ' . $volume;
 			if ($number) $entry[] = 'no. ' . $number;
-			if ($month) $entry[] = $month . ' ' . $year;
-			else $entry[] = $year;
+			if ($month && $year) $entry[] = $month . ' ' . $year;
+			else if ($year) $entry[] = $year;
 			if ($pages) $entry[] = $pages;
 			break;
 		case 'book':
-			$entry[] = $author;
-			$entry[] = "<em>$title</em>";
-			if ($address) $publisher = $address . ': ' . $publisher;
-			if ($edition) $entry[] = ($editionShort? $editionShort : $edition) . ' ed. ' . $publisher;
-			else $entry[] = $publisher;
-			$entry[] = $year;
+			if ($author) $entry[] = $author;
+			if ($title) $entry[] = '<em>' . $title . '</em>';
+			if ($address && $publisher) $publisher = $address . ': ' . $publisher;
+			if ($edition && $publisher) $entry[] = ($editionShort? $editionShort : $edition) . ' ed. ' . $publisher;
+			else if ($publisher) $entry[] = $publisher;
+			if ($year) $entry[] = $year;
 			break;
 		case 'booklet':
 			break;
 		case 'conference':
 			break;
 		case 'inbook':
-			$entry[] = $author;
-			$entry[] = "<em>$title</em>";
-			if ($address) $publisher = $address . ': ' . $publisher;
-			if ($edition) $entry[] = ($editionShort? $editionShort : $edition) . ' ed. ' . $publisher;
-			else $entry[] = $publisher;
-			$entry[] = $year;
-			if ($chapter) $entry[] = $chapter;
+			if ($author) $entry[] = $author;
+			if ($title) $entry[] = '<em>' . $title . '</em>';
+			if ($address && $publisher) $publisher = $address . ': ' . $publisher;
+			if ($edition && $publisher) $entry[] = ($editionShort? $editionShort : $edition) . ' ed. ' . $publisher;
+			else if ($publisher) $entry[] = $publisher;
+			if ($year) $entry[] = $year;
+			if ($chapter) $entry[] = 'ch. ' . $chapter;
 			if ($pages) $entry[] = $pages;
 			break;
 		case 'incollection':
-			$entry[] = $author;
-			$entry[] = '&quot;' . $title . '&quot;';
-			$entry[] = 'in <em>' . $booktitle . '</em>';
+			if ($author) $entry[] = $author;
+			if ($title) $entry[] = '&quot;' . $title . '&quot;';
+			if ($booktitle) $entry[] = 'in <em>' . $booktitle . '</em>';
 			if ($edition && $editor) $entry[] = ($editionShort? $editionShort : $edition) . ' ed. ' . $editor;
-			if ($address) $entry[] = $address . ': ' . $publisher;
-			else $entry[] = $publisher;
-			$entry[] = $year;
+			else if ($editor) $entry[] = $editor;
+			if ($address && $publisher) $entry[] = $address . ': ' . $publisher;
+			else if ($publisher) $entry[] = $publisher;
+			if ($year) $entry[] = $year;
 			if ($pages) $entry[] = $pages;
 			break;
 		case 'inproceedings':
-			$entry[] = $author;
-			$entry[] = '&quot;' . $title . '&quot;';
-			$entry[] = 'in <em>' . $booktitle . '</em>';
+			if ($author) $entry[] = $author;
+			if ($title) $entry[] = '&quot;' . $title . '&quot;';
+			if ($booktitle) $entry[] = 'in <em>' . $booktitle . '</em>';
 			if ($editor) $entry[] = $editor;
-			if ($address) $entry[] = $address . ': ' . $publisher;
-			else $entry[] = $publisher;
+			if ($address && $publisher) $entry[] = $address . ': ' . $publisher;
+			else if ($publisher) $entry[] = $publisher;
 			// the year is omitted if it is already part of the booktitle
-			if (!preg_match('/' . $year . '|' . '\'' . substr($year, 2) . '/', $booktitle)) $entry[] = $year;
+			if ($year && !preg_match('/' . $year . '|' . '\'' . substr($year, 2) . '/', $booktitle)) $entry[] = $year;
 			if ($pages) $entry[] = $pages;
 			break;
 		case 'manual':
 			break;
 		case 'mastersthesis':
-			$entry[] = $author;
-			$entry[] = '&quot;' . $title . '&quot;';
+			if ($author) $entry[] = $author;
+			if ($title) $entry[] = '&quot;' . $title . '&quot;';
 			if ($type) $entry[] = $type;
-			$entry[] = $school;
+			else $entry[] = 'Master\'s thesis';
+			if ($school) $entry[] = $school;
 			if ($address) $entry[] = $address;
-			$entry[] = $year;
+			if ($year) $entry[] = $year;
 			break;
 		case 'misc':
 			break;
 		case 'phdthesis':
-			$entry[] = $author;
-			$entry[] = '&quot;' . $title . '&quot;';
+			if ($author) $entry[] = $author;
+			if ($title) $entry[] = '&quot;' . $title . '&quot;';
 			if ($type) $entry[] = $type;
-			$entry[] = $school;
+			else $entry[] = 'Ph.D. dissertation';
+			if ($school) $entry[] = $school;
 			if ($address) $entry[] = $address;
-			$entry[] = $year;
+			if ($year) $entry[] = $year;
 			break;
 		case 'proceedings':
 			break;
 		case 'techreport':
-			$entry[] = $author;
-			$entry[] = '&quot;' . $title . '&quot;';
-			if ($address) $entry[] = $institution . ': ' . $address;
-			else $entry[] = $institution;
+			if ($author) $entry[] = $author;
+			if ($title) $entry[] = '&quot;' . $title . '&quot;';
+			if ($address && $institution) $entry[] = $institution . ': ' . $address;
+			else if ($institution) $entry[] = $institution;
 			if ($number) $entry[] = 'Rep. ' . $number;
 			// the year is omitted if it is already part of the report number
-			if (!$number || !preg_match('/' . $year . '|' . '\'' . substr($year, 2) . '/', $number)) $entry[] = $year;
+			if ($year && (!$number || !preg_match('/' . $year . '|' . '\'' . substr($year, 2) . '/', $number))) $entry[] = $year;
 			break;
 		case 'unpublished':
 			break;
