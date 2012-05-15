@@ -3,14 +3,16 @@ IEEETransactionsStyle
 
 IEEETransactionsStyle is a custom style script for [bibtexbrowser][1],
 a PHP-based generator for citations from bibtex files. It tries to
-adhere to the [IEEE style guidelines][2] as close as possible.
+adhere to the [IEEE style guidelines][2] as close as possible. You can
+find an example of how this style looks at the [SEDA research group][4].
 
 
 Limitations
 -----------
 
-*   The entry types _booklet_, _conference_, _manual_, _proceedings_,
-    _unpublished_ are completely ignored.
+*   The entry types _booklet_, _conference_, _manual_, _unpublished_
+    are ignored.
+*   Never tested with crossrefs.
 *   Online resources have not been considered at all.
 *   Special name suffixes are not handled properly.
     "Lastname, Firstname Jr." will become "J. F. Lastname"
@@ -28,7 +30,9 @@ Limitations
 Features on the Todo List
 -------------------------
 
-* Debug mode in which missing or incorrect entries are highlighted
+*   Automatic abbreviation of keywords such as "Proceedings" as
+    described in [the guidelines][2]
+*   Debug mode in which missing or incorrect entries are highlighted
 
 
 Integration into Bibtexbrowser
@@ -46,7 +50,7 @@ As described on the [bibtexbrowser website][1]:
         ?>
 
 
-A Short Introduction Into Bibtex Files
+A Short Introduction into Bibtex Files
 --------------------------------------
 
 This section will give you a (very) brief explanation of bibtex files and
@@ -122,6 +126,12 @@ __@mastersthesis__
 A master's, bachelor's, diploma, project or other thesis except PhD theses
 _Required:_ author, title, school, year
 _Optional:_ type, address, url, doi, comment
+
+__@proceedings__
+
+Proceedings of a conference
+_Required:_ editor, title, publisher, year
+_Optional:_ address, url, doi, comment
 
 __@phdthesis__
 
@@ -274,3 +284,4 @@ Contact, License and Copyright
 [1]: http://www.monperrus.net/martin/bibtexbrowser/
 [2]: https://origin.www.ieee.org/documents/ieeecitationref.pdf
 [3]: http://www.library.dal.ca/Files/How_do_I/pdf/IEEE_Citation_Style_Guide.pdf
+[4]: http://www.seda.cs.uni-kl.de/publications/

@@ -1,20 +1,22 @@
 <?php
 
+// This is version 2012-05-15
+
 /*
     This file is part of IEEEStyleForBibtexbrowser.
 
-    Foobar is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
+    IEEEStyleForBibtexbrowser is free software: you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    IEEEStyleForBibtexbrowser is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with IEEEStyleForBibtexbrowser.  If not, see <http://www.gnu.org/licenses/>.
+    along with IEEEStyleForBibtexbrowser. If not, see <http://www.gnu.org/licenses/>.
     
     You can always find the latest version at https://github.com/KaiBi/IEEEStyleForBibtexbrowser
 */
@@ -39,7 +41,7 @@ function IEEEStyle(&$bibentry) {
 	$author = false;
 	if ($bibentry->hasField(AUTHOR)) {
 	
-		// Bibtexbrowser does not support automatically abbreviating author names.
+		// Bibtexbrowser does not support abbreviating author names automatically.
 		// We have to do it ourselves.
 		$authors = $bibentry->getRawAuthors();
 		for ($i = 0; $i < count($authors); $i++) {
@@ -106,7 +108,7 @@ function IEEEStyle(&$bibentry) {
 		// special formatting depending on the number of authors
 		if (count($editors) > 3)
 			$editor = $editors[0] . ' et al., Eds.';
-		else if (count($authors) > 1)
+		else if (count($editors) > 1)
 			$editor = implode(', ', $editors) . ', Eds.';
 		else
 			$editor = $editors[0] . ', Ed.';
@@ -255,6 +257,12 @@ function IEEEStyle(&$bibentry) {
 			if ($year) $entry[] = $year;
 			break;
 		case 'proceedings':
+			if ($editor) $entry[] = $editor;
+			if ($title) $entry[] = '<em>' . $title . '</em>';
+			if ($address && $publisher) $publisher = $address . ': ' . $publisher;
+			else if ($publisher) $entry[] = $publisher;
+			// the year is omitted if it is already part of the title
+			if ($year && !preg_match('/' . $year . '|' . '\'' . substr($year, 2) . '/', $title)) $entry[] = $year;
 			break;
 		case 'techreport':
 			if ($author) $entry[] = $author;
