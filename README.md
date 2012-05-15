@@ -284,4 +284,4 @@ Contact, License and Copyright
 [1]: http://www.monperrus.net/martin/bibtexbrowser/
 [2]: https://origin.www.ieee.org/documents/ieeecitationref.pdf
 [3]: http://www.library.dal.ca/Files/How_do_I/pdf/IEEE_Citation_Style_Guide.pdf
-[4]: http://www.seda.cs.uni-kl.de/publications/
+[4]: http://seda.cs.uni-kl.de/publications/
