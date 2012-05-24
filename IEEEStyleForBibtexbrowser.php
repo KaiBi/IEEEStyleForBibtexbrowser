@@ -1,6 +1,6 @@
 <?php
 
-// This is version 2012-05-15
+// This is version 2012-05-24
 
 /*
     This file is part of IEEEStyleForBibtexbrowser.
@@ -95,13 +95,21 @@ function IEEEStyle(&$bibentry) {
 	if ($bibentry->hasField(EDITOR)) {
 		$editors = $bibentry->getEditors();
 		for ($i = 0; $i < count($editors); $i++) {
-			$e = $editors[$i];
-			$parts = explode(',', $e);
-			$lastname = trim($parts[0]);
-			$firstnames = explode(' ', trim($parts[1]));
+			$a = $editors[$i];
+			// check author format; "Firstname Lastname" or "Lastname, Firstname"
+			if (strpos($a, ',') === false) {
+				$parts = explode(' ', $a);
+				$lastname = trim(array_pop($parts));
+				$firstnames = $parts;
+			} else {
+				$parts = explode(',', $a);
+				$lastname = trim($parts[0]);
+				$firstnames = explode(' ', trim($parts[1]));
+			}
 			$name = array();
 			foreach ($firstnames as $fn)
 				$name[] = substr(trim($fn), 0, 1) . '.';
+			// do not forget the author links if available
 			$editors[$i] = $bibentry->addHomepageLink(implode(' ', $name) . ' ' . $lastname);
 		}
 		
