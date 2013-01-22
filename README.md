@@ -78,12 +78,13 @@ describes the options together with their default value and effect.
 Will force IEEEStyleForBibtexbrowser to work with a version of bibtexbrowser
 it has not been tested with if set to true.
 
-	<?php define('IEEEStyle_FullAuthorList', false); ?>
-	<?php define('IEEEStyle_FullEditorList', false); ?>
+        <?php define('IEEEStyle_FullAuthorList', false); ?>
+
+        <?php define('IEEEStyle_FullEditorList', false); ?>
 
 The [guidelines][2] state that the list of authors should be abbreviated
 _(et al.)_ if more than three authors are present. If this option is set to
-to IEEEStyleForBibtexbrowser will give the full author list with all names
+true IEEEStyleForBibtexbrowser will give the full author list with all names
 regardless of its length. The second option does the same with the list of
 editors.
 
@@ -99,7 +100,7 @@ Here is an example bibtex entry for an imaginary master's thesis.
         @mastersthesis{claus.2008,
             author  = {Claus, Santa},
             title   = {The Travelling Salesman Problem Revisited},
-	    school  = {Elven Academy of Applied Sciences},
+            school  = {Elven Academy of Applied Sciences},
             year    = {2008},
             month   = Dec,
             type    = {Master's thesis},
