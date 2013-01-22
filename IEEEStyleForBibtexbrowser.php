@@ -1,6 +1,6 @@
 <?php
 
-// This is version 2012-05-24
+// This is version 2013-01-22
 
 /*
     This file is part of IEEEStyleForBibtexbrowser.
@@ -25,24 +25,31 @@
 
 function IEEEStyle(&$bibentry) {
 	
-	/* bibtexbrowser has a small issue if the bibtex-entry itself contains a field "type"
-	   (e.g. @mastersthesis could contain type = {Bachelor Thesis}).
-	   This is easily fixed by setting the "Q_TYPE" configuration variable to something
-	   other than "type" in your bibtexbrowser.local.php
-	   
+	if (!defined('IEEEStyle_SkipVersionCheck'))
+		define('IEEEStyle_SkipVersionCheck', false);
+	if (!defined('IEEEStyle_FullAuthorList'))
+		define('IEEEStyle_FullAuthorList', false);
+	if (!defined('IEEEStyle_FullEditorList'))
+		define('IEEEStyle_FullEditorList', false);
+	
+	// check for supported bibtexbrowser-version
+	if (BIBTEXBROWSER !== 'v20121205' and IEEEStyleSkipVersionCheck !== true) {
+		die('This version of IEEEStyleForBibtexbrowser has not been tested with bibtexbrowser ' . BIBTEXBROWSER . '. You may add the following line to your bibtexbrowser-configuration to ignore this warning: ' . "\n" . '@define(\'IEEEStyle_SkipVersionCheck\', true);');
+	}
+	
+	/*
 	   IEEEStyleForBibtexbrowser uses $entryType for the bibtex entry type and $type for
 	   the field within an entry.
 	*/
-	$entryType = strtolower($bibentry->getField(Q_TYPE));
+	$entryType = strtolower($bibentry->getField(Q_INNER_TYPE));
 	$type = false;
-	if ($bibentry->hasField('type'))
-		$type = $bibentry->getField('type');
+	if ($bibentry->hasField(Q_TYPE))
+		$type = $bibentry->getField(Q_INNER_TYPE);
 	
 	$author = false;
-	if ($bibentry->hasField(AUTHOR)) {
+	if ($bibentry->hasField(Q_AUTHOR)) {
 	
-		// Bibtexbrowser does not support abbreviating author names automatically.
-		// We have to do it ourselves.
+		// abbreviate author names
 		$authors = $bibentry->getRawAuthors();
 		for ($i = 0; $i < count($authors); $i++) {
 			$a = $authors[$i];
@@ -60,18 +67,26 @@ function IEEEStyle(&$bibentry) {
 			foreach ($firstnames as $fn)
 				$name[] = substr(trim($fn), 0, 1) . '.';
 			// do not forget the author links if available
-			$authors[$i] = $bibentry->addHomepageLink(implode(' ', $name) . ' ' . $lastname);
+			if (BIBTEXBROWSER_AUTHOR_LINKS=='homepage') {
+				$authors[$i] = $bibentry->addHomepageLink(implode(' ', $name) . ' ' . $lastname);
+			}
+			if (BIBTEXBROWSER_AUTHOR_LINKS=='resultpage') {
+				$authors[$i] = $bibentry->addAuthorPageLink(implode(' ', $name) . ' ' . $lastname);
+			}
 		}
 		
 		// special formatting depending on the number of contributing authors
-		if (count($authors) > 3)
-			$author = $authors[0] . ' et al.';
-		else if (count($authors) > 2)
-			$author = $authors[0] . ', ' . $authors[1] . ' and ' . $authors[2];
-		else if (count($authors) > 1)
-			$author = $authors[0] . ', ' . $authors[1];
+		if (IEEEStyle_FullAuthorList === true and count($authors) > 3)
+			$author = implode(', ', $authors);
 		else
-			$author = $authors[0];
+			if (count($authors) > 3)
+				$author = $authors[0] . ' et al.';
+			else if (count($authors) > 2)
+				$author = $authors[0] . ', ' . $authors[1] . ' and ' . $authors[2];
+			else if (count($authors) > 1)
+				$author = $authors[0] . ', ' . $authors[1];
+			else
+				$author = $authors[0];
 	}
 
 	$title = false;
@@ -110,16 +125,24 @@ function IEEEStyle(&$bibentry) {
 			foreach ($firstnames as $fn)
 				$name[] = substr(trim($fn), 0, 1) . '.';
 			// do not forget the author links if available
-			$editors[$i] = $bibentry->addHomepageLink(implode(' ', $name) . ' ' . $lastname);
+			if (BIBTEXBROWSER_AUTHOR_LINKS=='homepage') {
+				$editors[$i] = $bibentry->addHomepageLink(implode(' ', $name) . ' ' . $lastname);
+			}
+			if (BIBTEXBROWSER_AUTHOR_LINKS=='resultpage') {
+				$editors[$i] = $bibentry->addAuthorPageLink(implode(' ', $name) . ' ' . $lastname);
+			}
 		}
 		
 		// special formatting depending on the number of authors
-		if (count($editors) > 3)
-			$editor = $editors[0] . ' et al., Eds.';
-		else if (count($editors) > 1)
+		if (IEEEStyle_FullEditorList === true and count($editors) > 3)
 			$editor = implode(', ', $editors) . ', Eds.';
 		else
-			$editor = $editors[0] . ', Ed.';
+			if (count($editors) > 3)
+				$editor = $editors[0] . ' et al., Eds.';
+			else if (count($editors) > 1)
+				$editor = implode(', ', $editors) . ', Eds.';
+			else
+				$editor = $editors[0] . ', Ed.';
 	}
 	
 	$booktitle = false;
@@ -288,8 +311,8 @@ function IEEEStyle(&$bibentry) {
 	}
 	
 	$result = implode(', ', $entry);
-			if ($comment) $result .= ' (' . $comment .')';
-			$result .= '.';
+	if ($comment) $result .= ' (' . $comment .')';
+		$result .= '.';
 	return $result . "\n" . $bibentry->toCoins();
 }
 
