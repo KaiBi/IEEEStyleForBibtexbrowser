@@ -1,7 +1,7 @@
-IEEETransactionsStyle
-=====================
+IEEEStyleForBibtexbrowser
+=========================
 
-IEEETransactionsStyle is a custom style script for [bibtexbrowser][1],
+IEEEStyleForBibtexbrowser is a custom style script for [bibtexbrowser][1],
 a PHP-based generator for citations from bibtex files. It tries to
 adhere to the [IEEE style guidelines][2] as close as possible. You can
 find an example of how this style looks at the [SEDA research group][4].
@@ -35,6 +35,22 @@ Features on the Todo List
 *   Debug mode in which missing or incorrect entries are highlighted
 
 
+Changelog
+----------
+
+_2013-01-22_
+
+*   Added compatibility to newest (v20121205) bibtexbrowser version
+    (will not work with earlier versions anymore)
+*   Added check and warning if the script is used with an unsupported version
+    of bibtexbrowser. Can be disabled by setting a configuration variable.
+*   Added support for the BIBTEXBROWSER_AUTHOR_LINKS configuration variable
+*   Added configuration variable to use full author and editor lists instead
+    of abbreviated ones (full list instead of first author et al.)
+*   Consistent use of IEEEStyleForBibtexbrowser as name throughout the project
+    to avoid confusions.
+
+
 Integration into Bibtexbrowser
 ------------------------------
 
@@ -50,6 +66,28 @@ As described on the [bibtexbrowser website][1]:
         ?>
 
 
+Configuration Options
+---------------------
+
+The previously described bibtexbrowser.local.php can also contain
+configuration directives for IEEEStyleForBibtexbrowser. The following list
+describes the options together with their default value and effect.
+
+        <?php define('IEEEStyle_SkipVersionCheck', false); ?>
+
+Will force IEEEStyleForBibtexbrowser to work with a version of bibtexbrowser
+it has not been tested with if set to true.
+
+	<?php define('IEEEStyle_FullAuthorList', false); ?>
+	<?php define('IEEEStyle_FullEditorList', false); ?>
+
+The [guidelines][2] state that the list of authors should be abbreviated
+_(et al.)_ if more than three authors are present. If this option is set to
+to IEEEStyleForBibtexbrowser will give the full author list with all names
+regardless of its length. The second option does the same with the list of
+editors.
+
+
 A Short Introduction into Bibtex Files
 --------------------------------------
 
@@ -62,10 +100,10 @@ Here is an example bibtex entry for an imaginary master's thesis.
             author  = {Claus, Santa},
             title   = {The Travelling Salesman Problem Revisited},
 	    school  = {Elven Academy of Applied Sciences},
-	    year    = {2008},
-	    month   = Dec,
-	    type    = {Master's thesis},
-	    address = {North Pole}
+            year    = {2008},
+            month   = Dec,
+            type    = {Master's thesis},
+            address = {North Pole}
         }
 
 For the remainder of this document the individual parts of a bibtex entry will
@@ -74,7 +112,7 @@ be called as follow:
     _mastersthesis_.
 *   The __key__ is a unique identifier. No two bibtex entries may use the same
     key. In this case, the key is a combination of the first author's last name
-    and the year (_claus.2008_).
+    and the year _(claus.2008)_.
 *   The individual __fields__ make up the main part of a bibtex entry. They are
     essentially key-value pairs in textual form that contain the data
     associated with a piece of literature or the artifact that should be cited.
@@ -83,11 +121,11 @@ be called as follow:
 
 
 Mandatory and Optional Fields
------------------------------------
+-----------------------------
 
 The style depends on the presence of various fields in the bibtex entries.
 This section lists the required fields that are recognized by
-IEEETransactionsStyle. Additional fields have no influence on the citation,
+IEEEStyleForBibtexbrowser. Additional fields have no influence on the citation,
 but will be included in any exported bibtex entries. Please refer to the
 next section for formatting conventions.
 
@@ -165,10 +203,10 @@ omitted.
 
 __author__
 
-Multiple authors are linked by the keyword _and_. IEEETransactionsStyle
+Multiple authors are linked by the keyword _and_. IEEEStyleForBibtexbrowser
 understands both common formats: either _Lastname, Firstname_ or
 _Firstname Lastname_. Please give the full name of all authors if available.
-IEEETransactionsStyle will abbreviate them on its own for the citation.
+IEEEStyleForBibtexbrowser will abbreviate them on its own for the citation.
 
 __booktitle__
 
@@ -192,8 +230,8 @@ you want to give the url manually use the _url_ field.
 __edition__
 
 Edition number formatted as natural text starting with a capital letter
-(e.g. _First_). IEEETransactionsStyle will automatically convert the text to a
-number in the citation.
+(e.g. _First_). IEEEStyleForBibtexbrowser will automatically convert the text
+to a number in the citation.
 
 __editor__
 
@@ -239,7 +277,7 @@ Main title of the work or contribution as arbitrary string value.
 
 __type__
 
-The type of the thesis. IEEETransactionsStyle will automatically insert
+The type of the thesis. IEEEStyleForBibtexbrowser will automatically insert
 _Ph.D. dissertation_ or _Master's thesis_ depending on the kind of entry
 if this field is left empty.
 
@@ -262,18 +300,18 @@ Contact, License and Copyright
 
     (c) Kai Bizik <b_iz_ik@cs.uni-kl.de> (remove underscores)
 
-    IEEETransactionsStyle is free software: you can redistribute it and/or
+    IEEEStyleForBibtexbrowser is free software: you can redistribute it and/or
     modify it under the terms of the GNU General Public License as published
     by the Free Software Foundation, either version 3 of the License,
     or (at your option) any later version.
 
-    IEEETransactionsStyle is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    IEEEStyleForBibtexbrowser is distributed in the hope that it will be
+    useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License along
-    with IEEETransactionsStyle. If not, see <http://www.gnu.org/licenses/>.
+    with IEEEStyleForBibtexbrowser. If not, see <http://www.gnu.org/licenses/>.
 
 
     The original bibtexbrowser script is (c) Martin Monperrus and also
