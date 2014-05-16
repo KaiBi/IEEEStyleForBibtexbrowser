@@ -33,9 +33,9 @@ function IEEEStyle(&$bibentry) {
 		define('IEEEStyle_FullEditorList', false);
 	
 	// check for supported bibtexbrowser-version
-	if (BIBTEXBROWSER !== 'v20121205' and IEEEStyleSkipVersionCheck !== true) {
-		die('This version of IEEEStyleForBibtexbrowser has not been tested with bibtexbrowser ' . BIBTEXBROWSER . '. You may add the following line to your bibtexbrowser-configuration to ignore this warning: ' . "\n" . '@define(\'IEEEStyle_SkipVersionCheck\', true);');
-	}
+//	if (BIBTEXBROWSER !== 'v20121205' and IEEEStyleSkipVersionCheck !== true) {
+//		die('This version of IEEEStyleForBibtexbrowser has not been tested with bibtexbrowser ' . BIBTEXBROWSER . '. You may add the following line to your bibtexbrowser-configuration to ignore this warning: ' . "\n" . '@define(\'IEEEStyle_SkipVersionCheck\', true);');
+//	}
 	
 	/*
 	   IEEEStyleForBibtexbrowser uses $entryType for the bibtex entry type and $type for
