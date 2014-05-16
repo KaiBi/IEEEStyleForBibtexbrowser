@@ -1,10 +1,13 @@
 IEEEStyleForBibtexbrowser
 =========================
 
+Note: Further development of IEEEStyleForBibtexbrowser has stopped
+because of time issues.
+
+
 IEEEStyleForBibtexbrowser is a custom style script for [bibtexbrowser][1],
 a PHP-based generator for citations from bibtex files. It tries to
-adhere to the [IEEE style guidelines][2] as close as possible. You can
-find an example of how this style looks at the [SEDA research group][4].
+adhere to the [IEEE style guidelines][2] as close as possible.
 
 
 Limitations
@@ -323,4 +326,3 @@ Contact, License and Copyright
 [1]: http://www.monperrus.net/martin/bibtexbrowser/
 [2]: https://origin.www.ieee.org/documents/ieeecitationref.pdf
 [3]: http://www.library.dal.ca/Files/How_do_I/pdf/IEEE_Citation_Style_Guide.pdf
-[4]: http://seda.cs.uni-kl.de/publications/
